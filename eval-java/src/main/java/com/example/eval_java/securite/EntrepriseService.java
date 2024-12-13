@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class EntrepriseService {
 
-
     @Autowired
     EntrepriseDao entrepriseDao;
 
@@ -25,25 +24,4 @@ public class EntrepriseService {
                 .orElseThrow(() -> new RuntimeException("Entreprise non trouvée avec l'id : " + id));
     }
 
-    // Créer une entreprise
-    public Entreprise createEntreprise(Entreprise entreprise) {
-        return entrepriseDao.save(entreprise);
-    }
-
-    // Mettre à jour une entreprise
-    public Entreprise updateEntreprise(Integer id, Entreprise entrepriseDetails) {
-        Entreprise entreprise = entrepriseDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Entreprise non trouvée avec l'id : " + id));
-
-        entreprise.setNom(entreprise.getNom());
-        return entrepriseDao.save(entreprise);
-    }
-
-    // Supprimer une entreprise
-    public void deleteEntreprise(Integer id) {
-        Entreprise entreprise = entrepriseDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Entreprise non trouvée avec l'id : " + id));
-
-        entrepriseDao.delete(entreprise);
-    }
 }

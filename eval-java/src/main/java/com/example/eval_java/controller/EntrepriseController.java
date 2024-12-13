@@ -1,13 +1,17 @@
 package com.example.eval_java.controller;
 
+import com.example.eval_java.dao.EntrepriseDao;
 import com.example.eval_java.model.Entreprise;
+import com.example.eval_java.model.Utilisateur;
 import com.example.eval_java.securite.EntrepriseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/entreprises")
@@ -16,39 +20,61 @@ public class EntrepriseController {
     @Autowired
     EntrepriseService entrepriseService;
 
-    // Endpoint : Récupérer toutes les entreprises
+    @Autowired
+    EntrepriseDao entrepriseDao;
+
     @GetMapping
-    public ResponseEntity<List<Entreprise>> getAllEntreprises() {
-        List<Entreprise> entreprises = entrepriseService.getAllEntreprises();
-        return new ResponseEntity<>(entreprises, HttpStatus.OK);
+    public List<Entreprise> getAllEntreprises() {
+        return entrepriseService.getAllEntreprises();
+
     }
 
-    // Endpoint : Récupérer une entreprise par ID
     @GetMapping("/{id}")
-    public ResponseEntity<Entreprise> getEntrepriseById(@PathVariable Integer id) {
-        Entreprise entreprise = entrepriseService.getEntrepriseById(id);
-        return new ResponseEntity<>(entreprise, HttpStatus.OK);
+    public Entreprise getEntrepriseById(@PathVariable Integer id) {
+        return entrepriseService.getEntrepriseById(id);
+
     }
 
-    // Endpoint : Créer une entreprise
-    @PostMapping
-    public ResponseEntity<Entreprise> createEntreprise(@RequestBody Entreprise entreprise) {
-        Entreprise createdEntreprise = entrepriseService.createEntreprise(entreprise);
-        return new ResponseEntity<>(createdEntreprise, HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<Entreprise> createEntreprise(@RequestBody @Valid Entreprise entreprise) {
+
+        entreprise.setId(null);
+
+        entrepriseDao.save(entreprise);
+
+        return new ResponseEntity<>(entreprise, HttpStatus.CREATED);
     }
+
 
     // Endpoint : Mettre à jour une entreprise
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Entreprise> updateEntreprise(
-            @PathVariable Integer id, @RequestBody Entreprise entrepriseDetails) {
-        Entreprise updatedEntreprise = entrepriseService.updateEntreprise(id, entrepriseDetails);
-        return new ResponseEntity<>(updatedEntreprise, HttpStatus.OK);
+             @RequestBody @Valid Entreprise entrepriseDetails, @PathVariable Integer id) {
+
+        entrepriseDetails.setId(id);
+
+        Optional<Entreprise> optionalEntreprise = entrepriseDao.findById(id);
+
+        //si l'utilisateur n'existe pas
+        if(optionalEntreprise.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        entrepriseDao.save(entrepriseDetails);
+
+        return new ResponseEntity<>(optionalEntreprise.get(), HttpStatus.OK);
     }
 
     // Endpoint : Supprimer une entreprise
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEntreprise(@PathVariable Integer id) {
-        entrepriseService.deleteEntreprise(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Entreprise> deleteEntreprise(@PathVariable Integer id) {
+
+        Optional<Entreprise> optionalEntreprise = entrepriseDao.findById(id);
+        //si l'utilisateur n'existe pas
+        if(optionalEntreprise.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        entrepriseDao.deleteById(id);
+
+        return new ResponseEntity<>(optionalEntreprise.get(), HttpStatus.OK);
     }
 }

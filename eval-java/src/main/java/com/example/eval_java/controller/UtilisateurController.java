@@ -45,7 +45,7 @@ public class UtilisateurController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<Utilisateur> create(
+    public ResponseEntity<Utilisateur> createUtilisateur(
             @RequestBody @Valid Utilisateur utilisateur) {
 
         utilisateur.setId(null);
@@ -83,7 +83,7 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Utilisateur> delete(@PathVariable Integer id) {
+    public ResponseEntity<Utilisateur> deleteUtilisateur(@PathVariable Integer id) {
         Utilisateur utilisateur = utilisateurDao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 

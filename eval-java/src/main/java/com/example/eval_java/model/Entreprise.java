@@ -22,11 +22,11 @@ public class Entreprise {
     @Column(nullable = false)
     String nom;
 
-    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
-    List<Convention> conventions;
+//    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
+//    List<Convention> conventions;
 
-    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
-    List<Utilisateur> utilisateurs;
+//    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
+//    List<Utilisateur> utilisateurs;
 
     public Integer getId() {
         return id;
@@ -44,20 +44,20 @@ public class Entreprise {
         this.nom = nom;
     }
 
-    public List<Convention> getConventions() {
-        return conventions;
-    }
+//    public List<Convention> getConventions() {
+//        return conventions;
+//    }
+//
+//    public void setConventions(List<Convention> conventions) {
+//        this.conventions = conventions;
+//    }
 
-    public void setConventions(List<Convention> conventions) {
-        this.conventions = conventions;
-    }
-
-    public List<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public void setUtilisateurs(List<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-    }
+//    public List<Utilisateur> getUtilisateurs() {
+//        return utilisateurs;
+//    }
+//
+//    public void setUtilisateurs(List<Utilisateur> utilisateurs) {
+//        this.utilisateurs = utilisateurs;
+//    }
 }
 
