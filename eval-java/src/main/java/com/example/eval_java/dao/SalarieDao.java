@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SalarieDao extends JpaRepository<Salarie, Integer> {
-
+    long countByConventionId(Integer conventionId);
 }

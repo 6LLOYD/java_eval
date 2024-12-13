@@ -1,4 +1,4 @@
-package com.example.eval_java.securite;
+package com.example.eval_java.service;
 
 import com.example.eval_java.dao.ConventionDao;
 import com.example.eval_java.model.Convention;

@@ -20,7 +20,7 @@ public class Entreprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     String nom;
 
 

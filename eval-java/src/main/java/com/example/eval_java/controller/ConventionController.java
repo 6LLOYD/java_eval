@@ -2,7 +2,9 @@ package com.example.eval_java.controller;
 
 import com.example.eval_java.dao.ConventionDao;
 import com.example.eval_java.model.Convention;
-import com.example.eval_java.securite.ConventionService;
+import com.example.eval_java.securite.IsAdmin;
+import com.example.eval_java.securite.IsEntreprise;
+import com.example.eval_java.service.ConventionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +38,7 @@ public class ConventionController {
     }
 
 
-
+    @IsAdmin
     @PostMapping("/add")
     public ResponseEntity<Convention> createConvention(@RequestBody @Valid Convention convention) {
         convention.setId(null);
@@ -46,7 +48,8 @@ public class ConventionController {
         return new ResponseEntity<>(convention, HttpStatus.CREATED);
     }
 
-
+    @IsAdmin
+    @IsEntreprise
     @PutMapping("/update/{id}")
     public ResponseEntity<Convention> updateConvention(
           @RequestBody @Valid Convention conventionDetails, @PathVariable Integer id) {
@@ -66,7 +69,7 @@ public class ConventionController {
         return new ResponseEntity<>(optionalConvention.get(), HttpStatus.OK);
     }
 
-
+    @IsAdmin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Convention> deleteConvention(@PathVariable Integer id) {
 

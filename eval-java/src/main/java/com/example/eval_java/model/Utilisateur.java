@@ -19,6 +19,7 @@ public class Utilisateur {
     @JsonView({UtilisateurView.class, EntrepriseView.class})
     Integer id;
 
+    @Column(nullable = false, unique = true)
     String email;
 
     String password;

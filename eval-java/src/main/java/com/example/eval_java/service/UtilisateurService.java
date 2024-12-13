@@ -1,7 +1,6 @@
-package com.example.eval_java.securite;
+package com.example.eval_java.service;
 
 import com.example.eval_java.dao.UtilisateurDao;
-import com.example.eval_java.model.Entreprise;
 import com.example.eval_java.model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,6 +2,7 @@ package com.example.eval_java.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,13 @@ public class Convention {
 
     String nom;
 
+    @NotNull(message = "Le champ subvention ne peut pas être nul")
+    @PositiveOrZero(message = "La subvention ne peut pas être négative")
     float subvention;
 
+
+    @NotNull(message = "Le champ salarieMaximum ne peut pas être nul")
+    @Min(value = 1, message = "Le nombre maximum de salariés doit être supérieur ou égal à 1")
     int salarieMaximum;
 
     @ManyToOne

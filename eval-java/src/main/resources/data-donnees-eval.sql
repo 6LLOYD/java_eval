@@ -7,8 +7,8 @@ INSERT INTO entreprise (nom) VALUES
 
 -- Insérer des utilisateurs (liés ou non à une entreprise)
 INSERT INTO utilisateur (email, password, entreprise_id) VALUES
- ('admin@admin.com', 'admin123', null), -- Administrateur (pas lié à une entreprise)
- ('contact@alpha.com', 'alpha2024', 1), -- Utilisateur lié à Entreprise Alpha
+ ('admin@admin.com', "$2a$10$31nhEmGLow2iIug.qqq6RuG3GXv1fo6wXfojXNswxqYqwR8kUJUEm", null), -- Administrateur (pas lié à une entreprise)
+ ('contact@alpha.com', '$2y$10$FhTTefb1Z/i8pef7WPRzzO8A2lp.ASktPNaaQEvyT4FPLMNzR2Vwe', 1), -- Utilisateur lié à Entreprise Alpha 'alpha2024'
  ('contact@bravo.com', 'bravo2024', 2),  -- Utilisateur lié à Entreprise Beta
  ('contact@charlie.com', 'charlie2024', 3),  -- Utilisateur lié à Entreprise Charlie
 ('contact@delta.com', 'delta2024', 4);  -- Utilisateur lié à Entreprise Delta

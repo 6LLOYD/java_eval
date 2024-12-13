@@ -4,11 +4,13 @@ import com.example.eval_java.dao.EntrepriseDao;
 import com.example.eval_java.dao.UtilisateurDao;
 import com.example.eval_java.model.Entreprise;
 import com.example.eval_java.model.Utilisateur;
-import com.example.eval_java.securite.UtilisateurService;
+import com.example.eval_java.securite.IsAdmin;
+import com.example.eval_java.service.UtilisateurService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +27,9 @@ public class UtilisateurController {
 
     @Autowired
     EntrepriseDao entrepriseDao;
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @GetMapping
     public List<Utilisateur> getAllUtilisateurs() {
@@ -43,7 +48,6 @@ public class UtilisateurController {
         return utilisateurService.getAdministrateurs();
     }
 
-
     @PostMapping("/add")
     public ResponseEntity<Utilisateur> createUtilisateur(
             @RequestBody @Valid Utilisateur utilisateur) {
@@ -51,7 +55,7 @@ public class UtilisateurController {
         utilisateur.setId(null);
 
         // Encodage du mot de passe
-        //utilisateur.setPassword(encoder.encode(utilisateur.getPassword()));
+        utilisateur.setPassword(encoder.encode(utilisateur.getPassword()));
 
         // Vérification de l'entreprise si elle est liée
         if (utilisateur.getEntreprise() != null && utilisateur.getEntreprise().getId() != null) {
@@ -75,9 +79,13 @@ public class UtilisateurController {
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
         utilisateur.setEmail(utilisateurEnvoye.getEmail());
-        utilisateur.setPassword(utilisateurEnvoye.getPassword());
+
         utilisateur.setEntreprise(utilisateurEnvoye.getEntreprise());
 
+        //Si l'utilisateur a un nouveau mot de passe, on le hash le nouveau
+        if(utilisateur.getPassword() != null) {
+            utilisateur.setPassword(encoder.encode(utilisateur.getPassword()));
+        }
         utilisateurDao.save(utilisateur);
         return new ResponseEntity<>(utilisateur, HttpStatus.OK);
     }

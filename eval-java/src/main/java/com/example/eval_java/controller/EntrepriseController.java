@@ -1,10 +1,8 @@
 package com.example.eval_java.controller;
 
 import com.example.eval_java.dao.EntrepriseDao;
-import com.example.eval_java.model.Convention;
 import com.example.eval_java.model.Entreprise;
-import com.example.eval_java.model.Utilisateur;
-import com.example.eval_java.securite.EntrepriseService;
+import com.example.eval_java.service.EntrepriseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
