@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConventionDao extends JpaRepository<Convention, Integer> {
-    // JpaRepository fournit déjà les méthodes CRUD de base
+
 }

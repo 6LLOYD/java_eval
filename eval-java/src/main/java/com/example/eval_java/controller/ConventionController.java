@@ -46,7 +46,7 @@ public class ConventionController {
         return new ResponseEntity<>(convention, HttpStatus.CREATED);
     }
 
-    // Endpoint : Mettre à jour une convention
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Convention> updateConvention(
           @RequestBody @Valid Convention conventionDetails, @PathVariable Integer id) {
