@@ -1,5 +1,6 @@
 package com.example.eval_java.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,9 @@ public class Entreprise {
     @Column(nullable = false)
     String nom;
 
+
 //    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
+//    @JsonManagedReference
 //    List<Convention> conventions;
 
 //    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
@@ -44,13 +47,13 @@ public class Entreprise {
         this.nom = nom;
     }
 
-//    public List<Convention> getConventions() {
-//        return conventions;
-//    }
-//
-//    public void setConventions(List<Convention> conventions) {
-//        this.conventions = conventions;
-//    }
+//   public List<Convention> getConventions() {
+//       return conventions;
+//  }
+////
+//public void setConventions(List<Convention> conventions) {
+//   this.conventions = conventions;
+//  }
 
 //    public List<Utilisateur> getUtilisateurs() {
 //        return utilisateurs;

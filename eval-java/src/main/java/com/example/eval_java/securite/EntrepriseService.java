@@ -1,6 +1,7 @@
 package com.example.eval_java.securite;
 
 import com.example.eval_java.dao.EntrepriseDao;
+import com.example.eval_java.model.Convention;
 import com.example.eval_java.model.Entreprise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,10 @@ public class EntrepriseService {
                 .orElseThrow(() -> new RuntimeException("Entreprise non trouvée avec l'id : " + id));
     }
 
+//    // Récupérer les conventions associées à une entreprise
+//    public List<Convention> getConventionsByEntreprise(Integer entrepriseId) {
+//        Entreprise entreprise = entrepriseDao.findById(entrepriseId)
+//                .orElseThrow(() -> new RuntimeException("Entreprise non trouvée avec l'id : " + entrepriseId));
+//        return entreprise.getConventions();
+//    }
 }

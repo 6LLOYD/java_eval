@@ -1,6 +1,7 @@
 package com.example.eval_java.controller;
 
 import com.example.eval_java.dao.EntrepriseDao;
+import com.example.eval_java.model.Convention;
 import com.example.eval_java.model.Entreprise;
 import com.example.eval_java.model.Utilisateur;
 import com.example.eval_java.securite.EntrepriseService;
@@ -46,7 +47,6 @@ public class EntrepriseController {
     }
 
 
-    // Endpoint : Mettre à jour une entreprise
     @PutMapping("/update/{id}")
     public ResponseEntity<Entreprise> updateEntreprise(
              @RequestBody @Valid Entreprise entrepriseDetails, @PathVariable Integer id) {
@@ -55,7 +55,6 @@ public class EntrepriseController {
 
         Optional<Entreprise> optionalEntreprise = entrepriseDao.findById(id);
 
-        //si l'utilisateur n'existe pas
         if(optionalEntreprise.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -64,7 +63,7 @@ public class EntrepriseController {
         return new ResponseEntity<>(optionalEntreprise.get(), HttpStatus.OK);
     }
 
-    // Endpoint : Supprimer une entreprise
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Entreprise> deleteEntreprise(@PathVariable Integer id) {
 
@@ -77,4 +76,5 @@ public class EntrepriseController {
 
         return new ResponseEntity<>(optionalEntreprise.get(), HttpStatus.OK);
     }
+
 }

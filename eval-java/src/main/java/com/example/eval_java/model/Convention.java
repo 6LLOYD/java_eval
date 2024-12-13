@@ -1,4 +1,6 @@
 package com.example.eval_java.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,10 +27,11 @@ public class Convention {
 
     @ManyToOne
     @JoinColumn(name = "entreprise_id", nullable = false)
+    @JsonBackReference
     Entreprise entreprise;
 
-    @OneToMany(mappedBy = "convention", cascade = CascadeType.ALL)
-    List<Salarie> salaries;
+//    @OneToMany(mappedBy = "convention", cascade = CascadeType.ALL)
+//    List<Salarie> salaries;
 
     public Integer getId() {
         return id;
@@ -70,13 +73,13 @@ public class Convention {
         this.entreprise = entreprise;
     }
 
-    public List<Salarie> getSalaries() {
-        return salaries;
-    }
-
-    public void setSalaries(List<Salarie> salaries) {
-        this.salaries = salaries;
-    }
+//    public List<Salarie> getSalaries() {
+//        return salaries;
+//    }
+//
+//    public void setSalaries(List<Salarie> salaries) {
+//        this.salaries = salaries;
+//    }
 }
 
 
